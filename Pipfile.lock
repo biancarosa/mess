@@ -1,0 +1,61 @@
+{
+    "_meta": {
+        "hash": {
+            "sha256": "1c8c28f956a7be6696a16eedbd3ebdefa9c8b24e37a4e8944559b66575f26be3"
+        },
+        "host-environment-markers": {
+            "implementation_name": "cpython",
+            "implementation_version": "0",
+            "os_name": "posix",
+            "platform_machine": "x86_64",
+            "platform_python_implementation": "CPython",
+            "platform_release": "4.15.0-23-generic",
+            "platform_system": "Linux",
+            "platform_version": "#25-Ubuntu SMP Wed May 23 18:02:16 UTC 2018",
+            "python_full_version": "2.7.15rc1",
+            "python_version": "2.7",
+            "sys_platform": "linux2"
+        },
+        "pipfile-spec": 6,
+        "requires": {},
+        "sources": [
+            {
+                "name": "pypi",
+                "url": "https://pypi.python.org/simple",
+                "verify_ssl": true
+            }
+        ]
+    },
+    "default": {
+        "pyro4": {
+            "hashes": [
+                "sha256:12e7a279d0205d3f0260d001dfe6e951c373160a8208ff450d5e0280192ac22d",
+                "sha256:2766b53db49f70b0d047fa6871aeb47484ba7e50cf53cfa37d26f87742c0b6a8"
+            ],
+            "version": "==4.72"
+        },
+        "selectors34": {
+            "hashes": [
+                "sha256:b8906fa8cd794fa1de5c8c7ccf8937d4d6a1d2937acc525594e5c6d04508d22d",
+                "sha256:09f5066337f8a76fb5233f267873f89a27a17c10bf79575954894bb71686451c"
+            ],
+            "markers": "python_version < '3.4'",
+            "version": "==1.2"
+        },
+        "serpent": {
+            "hashes": [
+                "sha256:a193b7ed60db641558a6945116aaf5bc961cba9d1ddc6dffa650f43439c9c6d9",
+                "sha256:b6855483d95a03b6aee358363684cd38a3a670240da5bc6da4253079cb07b8df"
+            ],
+            "version": "==1.24"
+        },
+        "six": {
+            "hashes": [
+                "sha256:832dc0e10feb1aa2c68dcc57dbb658f1c7e65b9b61af69048abc87a2db00a0eb",
+                "sha256:70e8a77beed4562e7f14fe23a786b54f6296e34344c23bc42f07b15018ff98e9"
+            ],
+            "version": "==1.11.0"
+        }
+    },
+    "develop": {}
+}
