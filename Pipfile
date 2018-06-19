@@ -6,7 +6,9 @@ name = "pypi"
 
 
 [requires]
+
 python_version = '3.6'
+
 
 [dev-packages]
 
@@ -15,3 +17,6 @@ python_version = '3.6'
 [packages]
 
 "pyro4" = "*"
+grpcio = "*"
+grpcio-tools = "*"
+googleapis-common-protos = "*"
