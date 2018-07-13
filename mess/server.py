@@ -4,11 +4,18 @@ import Pyro4
 
 from config import SERVER_NAME
 
+class Message(object):
+
+    def __init__(self, message):
+        self.message = message
+        self.date = datetime.now()
+
 @Pyro4.expose
 class Chat(object):
     def send_message(self, text):
-        now = datetime.now()
-        print(f'{text} - received at {now:%H:%M:%S} \n')
+        message = Message(text)
+        print(f'{message.message} - received at {message.date:%H:%M:%S} \n')
+        
 
 def start_server():
     daemon = Pyro4.Daemon()
