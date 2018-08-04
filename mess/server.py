@@ -10,12 +10,25 @@ class Message(object):
         self.message = message
         self.date = datetime.now()
 
+    def __str__(self):
+        return f'{self.message} - received at {self.date:%H:%M:%S} \n'
+
+CLIENTS = {}
+
 @Pyro4.expose
 class Chat(object):
-    def send_message(self, text):
+    
+    def register(self, name):
+        print(f'Client {name} registered')
+        client = Pyro4.Proxy(f"PYRONAME:{name}")
+        CLIENTS[name] = client
+
+    def send_message(self, sender, text):
         message = Message(text)
-        print(f'{message.message} - received at {message.date:%H:%M:%S} \n')
-        
+        print(f"Received {message} from {sender}")
+        for name in CLIENTS.keys():
+            client = CLIENTS[name]
+            client.print_message(sender, message.__str__())
 
 def start_server():
     daemon = Pyro4.Daemon()
