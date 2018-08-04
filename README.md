@@ -17,10 +17,12 @@ In order to achieve this, the server sends the message to all clients registered
 # usage
 
 Start a Name Server: 
-python -m Pyro4.naming 
+`python -m Pyro4.naming `
 
 Start the Server:
-python rmi/server.py
+`python rmi/server.py`
 
 Start the Client:
-python rmi/client.
+`python rmi/client.py`
+
+made with :heart: with Python
