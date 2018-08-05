@@ -31,10 +31,10 @@
     "default": {
         "pyro4": {
             "hashes": [
-                "sha256:12e7a279d0205d3f0260d001dfe6e951c373160a8208ff450d5e0280192ac22d",
-                "sha256:2766b53db49f70b0d047fa6871aeb47484ba7e50cf53cfa37d26f87742c0b6a8"
+                "sha256:4a71a613015d1a2bca6939d9ce4d5866ccd1fd30365ebbbf67482b6341867cf8",
+                "sha256:536b07a097d0619e7ab1effa3747fda177a24168d17a07a93ca9ac30977608f7"
             ],
-            "version": "==4.72"
+            "version": "==4.73"
         },
         "selectors34": {
             "hashes": [
@@ -46,10 +46,10 @@
         },
         "serpent": {
             "hashes": [
-                "sha256:a193b7ed60db641558a6945116aaf5bc961cba9d1ddc6dffa650f43439c9c6d9",
-                "sha256:b6855483d95a03b6aee358363684cd38a3a670240da5bc6da4253079cb07b8df"
+                "sha256:eb489aeb85333f6ee5ab2f4bc666a5731d870a562b26b6e63c6b9384befd3186",
+                "sha256:6f8dc4317fb5b5a9629b5e518846bc9fee374b8171533726dc68df52b36ee912"
             ],
-            "version": "==1.24"
+            "version": "==1.27"
         },
         "six": {
             "hashes": [

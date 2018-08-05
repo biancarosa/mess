@@ -11,17 +11,17 @@
   - name: set locale
     command: /usr/sbin/update-locale LANG=pt_BR.UTF-8 LC_ALL=pt_BR.UTF-8
 
-  - name: ensure python-pip is installed
-    apt: pkg=python-pip update_cache=yes
+  - name: Add repositories
+    apt_repository: repo='ppa:deadsnakes/ppa' state=present
 
   - name: ensure unzip is installed
     apt: pkg=unzip update_cache=yes
 
   - name: ensure python3.6 is installed
     apt: pkg=python3.6 update_cache=yes
-  
-  - name: install the pipenv package
-    pip: name=pipenv state=latest
+
+  - name: ensure python3.6 is installed
+    apt: pkg=python3-pip update_cache=yes
 
   - name: copy your folder using a work around
     unarchive: src=mess.zip dest=/home/vagrant/
@@ -31,28 +31,33 @@
       src: Pipfile
       dest: /home/vagrant/Pipfile
 
+  - name: copy pipfile lock
+    copy:
+      src: Pipfile.lock
+      dest: /home/vagrant/Pipfile.lock
+
+  - name: copy requirements
+    copy:
+      src: requirements.txt
+      dest: /home/vagrant/requirements.txt
+
   - name: install dependencies
-    command: chdir=/home/vagrant pipenv install --system
+    command: chdir=/home/vagrant python3.6 -m pip install -r requirements.txt
 
   - name: run name server
-    command: python -m Pyro4.naming &
-    delegate_to: 127.0.0.1
-    run_once: true
+    shell: python3.6 -m Pyro4.naming >/dev/null 2>&1 &
 
-  - name: run server
-    command: python server.py
-    chdir: /home/vagrant/mess
-    delegate_to: 127.0.0.1
-    run_once: true
+  # - name: run server
+  #   command: python3.6 /home/vagrant/mess/server.py
+  #   delegate_to: 127.0.0.1
+  #   run_once: true
 
-  - name: run client 1
-    command: python client.py
-    chdir: /home/vagrant/mess
-    delegate_to: 127.0.0.1
-    run_once: true
+  # - name: run client 1
+  #   command: python /home/vagrant/mess/client.py
+  #   delegate_to: 127.0.0.1
+  #   run_once: true
 
-  - name: run client 2
-    command: python client.py
-    chdir: /home/vagrant/mess
-    delegate_to: 127.0.0.1
-    run_once: true
+  # - name: run client 2
+  #   command: python /home/vagrant/mess/client.py
+  #   delegate_to: 127.0.0.1
+  #   run_once: true
