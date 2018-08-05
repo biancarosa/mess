@@ -25,4 +25,8 @@ Start the Server:
 Start the Client:
 `python rmi/client.py`
 
-made with :heart: with Python
+# packaging 
+
+`zip -r mess.zip mess/`
+
+made with :heart: with Python 3.6
