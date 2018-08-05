@@ -1,0 +1,40 @@
+---
+- hosts: all
+  become: true
+
+  tasks:
+  - name: Ensure a locale exists
+    locale_gen:
+      name: pt_BR.UTF-8
+      state: present
+  
+  - name: set locale
+    command: /usr/sbin/update-locale LANG=pt_BR.UTF-8 LC_ALL=pt_BR.UTF-8
+
+  - name: ensure python-pip is installed
+    apt: pkg=python-pip update_cache=yes
+
+  - name: ensure unzip is installed
+    apt: pkg=unzip update_cache=yes
+
+  - name: ensure python3.6 is installed
+    apt: pkg=python3.6 update_cache=yes
+  
+  - name: install the pipenv package
+    pip: name=pipenv state=latest
+
+  - name: copy your folder using a work around
+    unarchive: src=mess.zip dest=/home/vagrant/
+  
+  - name: copy pipfile
+    copy:
+      src: Pipfile
+      dest: /home/vagrant/Pipfile
+
+  - name: install dependencies
+    command: chdir=/home/vagrant pipenv install --system
+
+  - name: run my script!
+    command: python -m Pyro4.naming &
+    delegate_to: 127.0.0.1
+    run_once: true

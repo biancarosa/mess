@@ -1,5 +1,6 @@
 Vagrant.configure("2") do |config|
-  config.vm.define :server do |server|
-    server.vm.box = "hashicorp/precise64"
+  config.vm.box = "ubuntu/xenial64"
+  config.vm.provision "ansible_local" do |ansible|
+    ansible.playbook = "playbook-node.yml"
   end
 end
