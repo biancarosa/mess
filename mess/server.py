@@ -30,12 +30,13 @@ class Chat(object):
     def send_message(self, sender, text):
         message = Message(text)
         print(f"Received {message} from {sender}")
+        self.send_message_to_clients(sender, message.__str__())
+        send_multicast_message(message.message)
+    
+    def send_message_to_clients(self, sender, text):
         for name in CLIENTS.keys():
             client = CLIENTS[name]
-            client.print_message(sender, message.__str__())
-        # send to servers
-        send_multicast_message(message.message)
-
+            client.print_message(sender, text)
 
 def start_server():
     daemon = Pyro4.Daemon()
@@ -69,7 +70,8 @@ def receive_multicast_messages():
             data, address = sock.recvfrom(1024)
             
             print('received %s bytes from %s' % (len(data), address))
-            print(data)
+            chat = Chat()
+            chat.send_message_to_clients('ANOTHER_SERVER', str(data))
 
             print('sending acknowledgement to', address)
             sock.sendto(b'ack', address)
