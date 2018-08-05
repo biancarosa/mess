@@ -34,7 +34,25 @@
   - name: install dependencies
     command: chdir=/home/vagrant pipenv install --system
 
-  - name: run my script!
+  - name: run name server
     command: python -m Pyro4.naming &
+    delegate_to: 127.0.0.1
+    run_once: true
+
+  - name: run server
+    command: python server.py
+    chdir: /home/vagrant/mess
+    delegate_to: 127.0.0.1
+    run_once: true
+
+  - name: run client 1
+    command: python client.py
+    chdir: /home/vagrant/mess
+    delegate_to: 127.0.0.1
+    run_once: true
+
+  - name: run client 2
+    command: python client.py
+    chdir: /home/vagrant/mess
     delegate_to: 127.0.0.1
     run_once: true
