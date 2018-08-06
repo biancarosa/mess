@@ -20,7 +20,7 @@
   - name: ensure python3.6 is installed
     apt: pkg=python3.6 update_cache=yes
 
-  - name: ensure python3.6 is installed
+  - name: ensure python3-pip is installed
     apt: pkg=python3-pip update_cache=yes
 
   - name: copy your folder using a work around
