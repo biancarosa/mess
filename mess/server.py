@@ -1,5 +1,7 @@
 from datetime import datetime
 import threading
+import socket
+import struct
 
 import Pyro4
 
@@ -46,23 +48,14 @@ def start_server():
     daemon.requestLoop()
 
 def receive_multicast_messages():
-    import socket
-    import struct
-
     multicast_group = '224.3.29.71'
     server_address = ('', 10000)
 
-    # Create the socket
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-
-    # Bind to the server address
     sock.bind(server_address)
-    # Tell the operating system to add the socket to the multicast group
-    # on all interfaces.
     group = socket.inet_aton(multicast_group)
     mreq = struct.pack('4sL', group, socket.INADDR_ANY)
     sock.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, mreq)
-    # Receive/respond loop
     while True:
         try:
             print('\nwaiting to receive message')
@@ -79,23 +72,13 @@ def receive_multicast_messages():
             print(e)
 
 def send_multicast_message(message):
-    import socket
-
     multicast_group = ('224.3.29.71', 10000)
-
-    # Create the datagram socket
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-
-    # Set a timeout so the socket does not block indefinitely when trying
-    # to receive data.
     sock.settimeout(5)
     try:
 
-        # Send data to the multicast group
         print('sending "%s"' % message)
-        sent = sock.sendto(bytes(message, 'utf-8'), multicast_group)
-        print(sent)
-        # Look for responses from all recipients
+        sock.sendto(bytes(message, 'utf-8'), multicast_group)
         while True:
             print('waiting to receive')
             try:
