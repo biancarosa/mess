@@ -13,7 +13,7 @@ class Message(object):
         self.date = datetime.now()
 
     def __str__(self):
-        return f"{self.message} \n received at {self.date:%H:%M:%S} \n"
+        return f"{self.message}\nreceived at {self.date:%H:%M:%S} \n"
 
 
 CLIENTS = {}
