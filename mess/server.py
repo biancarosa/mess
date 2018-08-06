@@ -13,7 +13,7 @@ class Message(object):
         self.date = datetime.now()
 
     def __str__(self):
-        return f'{self.message} - received at {self.date:%H:%M:%S} \n'
+        return f"{self.message} \n received at {self.date:%H:%M:%S} \n"
 
 
 CLIENTS = {}
@@ -30,8 +30,7 @@ class Chat(object):
     def send_message(self, sender, text):
         message = Message(text)
         print(f"Received {message} from {sender}")
-        self.send_message_to_clients(sender, message.__str__())
-        send_multicast_message(message.message)
+        send_multicast_message(f"{sender}_{message.__str__()}")
     
     def send_message_to_clients(self, sender, text):
         for name in CLIENTS.keys():
@@ -71,7 +70,8 @@ def receive_multicast_messages():
             
             print('received %s bytes from %s' % (len(data), address))
             chat = Chat()
-            chat.send_message_to_clients('ANOTHER_SERVER', str(data))
+            data = data.decode("utf-8").split('_')
+            chat.send_message_to_clients(data[0], data[1])
 
             print('sending acknowledgement to', address)
             sock.sendto(b'ack', address)
@@ -80,7 +80,6 @@ def receive_multicast_messages():
 
 def send_multicast_message(message):
     import socket
-    import struct
 
     multicast_group = ('224.3.29.71', 10000)
 
@@ -89,11 +88,7 @@ def send_multicast_message(message):
 
     # Set a timeout so the socket does not block indefinitely when trying
     # to receive data.
-    sock.settimeout(0.2)
-    # Set the time-to-live for messages to 1 so they do not go past the
-    # local network segment.
-    ttl = struct.pack('b', 1)
-    sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, ttl)
+    sock.settimeout(5)
     try:
 
         # Send data to the multicast group
