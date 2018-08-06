@@ -8,7 +8,11 @@
   <body>
       <h1>mess - a messaging system</h1>
       <h2>Arquitetura</h2>
-      <h3>Cliente</h3>
-      <h4>Servidor</h4>
+      <p>O sistema consiste em vários nós com um servidor e múltiplos clientes.</p>
+      <h2>Cliente</h2>
+      <p>Cada cliente fica esperando um input do usuário com uma mensagem e mostra mensagens enviadas pelo servidor, provenientes de outro usuário</p>
+      <p>A tecnologia utilizada para o envio e recebimento de mensagens do lado do cliente é uma biblioteca chamada Pyro (Python Smart Objects).</p>
+      <h2>Servidor</h2>
+      <p>O servidor recebe mensagens de um cliente, envia para um grupo via socket multicast e recebe as mensagens desse grupo e envia para os clientes.</p>
   </body>
 </html>
