@@ -46,18 +46,3 @@
 
   - name: run name server
     shell: python3.6 -m Pyro4.naming >/dev/null 2>&1 &
-
-  # - name: run server
-  #   command: python3.6 /home/vagrant/mess/server.py
-  #   delegate_to: 127.0.0.1
-  #   run_once: true
-
-  # - name: run client 1
-  #   command: python /home/vagrant/mess/client.py
-  #   delegate_to: 127.0.0.1
-  #   run_once: true
-
-  # - name: run client 2
-  #   command: python /home/vagrant/mess/client.py
-  #   delegate_to: 127.0.0.1
-  #   run_once: true
