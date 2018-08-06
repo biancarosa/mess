@@ -72,17 +72,14 @@ def receive_multicast_messages():
             print(e)
 
 def send_multicast_message(message):
-    multicast_group = ('224.3.29.71', 10000)
-    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    sock.settimeout(5)
     try:
 
         print('sending "%s"' % message)
-        sock.sendto(bytes(message, 'utf-8'), multicast_group)
+        SOCK.sendto(bytes(message, 'utf-8'), multicast_group)
         while True:
             print('waiting to receive')
             try:
-                data, server = sock.recvfrom(16)
+                data, server = SOCK.recvfrom(16)
             except socket.timeout:
                 print('timed out, no more responses')
                 break
@@ -90,17 +87,22 @@ def send_multicast_message(message):
                 print('received "%s" from %s' % (data, server))
     except Exception as e:
         print(e)
-    finally:
-        print('closing socket')
-        sock.close()
 
+SOCK = None
 
 if __name__ == '__main__':
     try:
         server_thread = threading.Thread(
             target=start_server, daemon=True)
         server_thread.start()
+
+        multicast_group = ('224.3.29.71', 10000)
+        SOCK = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        SOCK.settimeout(5)
         receive_multicast_messages()
     except (KeyboardInterrupt, EOFError):
         print('Goodbye! (:')
         exit
+    finally:
+        print('closing socket')
+        SOCK.close()
