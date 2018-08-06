@@ -25,6 +25,8 @@ Start the Client:
 
 # packaging 
 
-`zip -r mess.zip mess/`
+There is a script named `generate_artefacts.sh` that creates artefacts based on the project folder.
+
+# credits
 
 made with :heart: with Python 3.6
