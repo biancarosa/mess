@@ -1,6 +1,10 @@
 # mess
 mess is a distributed chat system that uses smart objects to send and receive messages and multicast sockets to share messages across multiple servers
 
+# docs
+
+current docs in pt-br here: [http://biancarosa.com.br/mess/](http://biancarosa.com.br/mess/)
+
 # architecture
 
 The system can have one or more from multiple nodes. The nodes can live in the same machine or in differente machines.
@@ -14,14 +18,7 @@ In order to achieve this, the server sends the message to all clients registered
 
 # usage
 
-Start a Name Server: 
-`python3.6 -m Pyro4.naming`
-
-Start the Server:
-`python3.6 mess/server.py`
-
-Start the Client:
-`python3.6 mess/client.py`
+You'll need a vagrant in your machine. If you want to run without a VM, you should run the ansible-playbook in your machine or the equivalent commands for your OS.
 
 # packaging 
 
