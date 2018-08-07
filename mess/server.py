@@ -46,7 +46,7 @@ def start_server():
     daemon.requestLoop()
 
 def receive_multicast_messages():
-    multicast_group = '224.3.29.71'
+    multicast_group = '224.0.0.1'
     server_address = ('', 10000)
 
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -71,7 +71,7 @@ def receive_multicast_messages():
 
 def send_multicast_message(message):
     try:
-        multicast_group = ('224.3.29.71', 10000)
+        multicast_group = ('224.0.0.1', 10000)
         print('sending "%s"' % message)
         SOCK.sendto(bytes(message, 'utf-8'), multicast_group)
         while True:
