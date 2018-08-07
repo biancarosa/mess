@@ -46,3 +46,6 @@
 
   - name: run name server
     shell: python3.6 -m Pyro4.naming >/dev/null 2>&1 &
+
+  - name: add ip route
+    shell: sudo ip route add 224.0.0.0/4 dev $(ifconfig | grep 10.0.0. -B 1 -C 0 | awk '{print $1; exit}')
