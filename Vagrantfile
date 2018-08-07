@@ -1,21 +1,18 @@
-Vagrant.configure("2") do |config|
-  config.vm.network "private_network", type: "dhcp"
-  config.vm.define "node1" do |node1|
-    node1.vm.box = "ubuntu/xenial64"
-    node1.vm.provision "ansible_local" do |ansible|
-      ansible.playbook = "playbook-node.yml"
-    end
-    node1.vm.hostname = "node1"
-    node1.vm.network :private_network, ip: "10.0.0.11"
-  end
+NODE_COUNT = 3
 
-  config.vm.define "node2" do |node2|
-    node2.vm.box = "ubuntu/xenial64"
-    node2.vm.provision "ansible_local" do |ansible|
-      ansible.playbook = "playbook-node.yml"
+Vagrant.configure("2") do |config|
+  
+  config.vm.network "private_network", type: "dhcp"
+
+  (1..NODE_COUNT).each do |i|
+    config.vm.define "node#{i}" do |subconfig|
+      subconfig.vm.box = "ubuntu/xenial64"
+      subconfig.vm.provision "ansible_local" do |ansible|
+        ansible.playbook = "playbook-node.yml"
+      end
+      subconfig.vm.hostname = "node#{i}"
+      subconfig.vm.network :private_network, ip: "10.0.0.1#{i}"
     end
-    node2.vm.hostname = "node2"
-    node2.vm.network :private_network, ip: "10.0.0.12"
   end
 
 end
