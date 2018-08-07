@@ -26,15 +26,15 @@
   - name: copy your folder using a work around
     unarchive: src=mess.zip dest=/home/vagrant/
   
-  - name: copy pipfile
+  - name: copy start server
     copy:
-      src: Pipfile
-      dest: /home/vagrant/Pipfile
+      src: start_server.sh
+      dest: /home/vagrant/start_server.sh
 
-  - name: copy pipfile lock
+  - name: copy start client
     copy:
-      src: Pipfile.lock
-      dest: /home/vagrant/Pipfile.lock
+      src: start_client.sh
+      dest: /home/vagrant/start_client.sh
 
   - name: copy requirements
     copy:
