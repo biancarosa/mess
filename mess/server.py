@@ -7,6 +7,8 @@ import Pyro4
 
 from config import SERVER_NAME
 
+CLIENTS = {}
+SOCK = None
 
 class Message(object):
 
@@ -16,10 +18,6 @@ class Message(object):
 
     def __str__(self):
         return f"{self.message}\nreceived at {self.date:%H:%M:%S} \n"
-
-
-CLIENTS = {}
-
 
 @Pyro4.expose
 class Chat(object):
@@ -58,7 +56,7 @@ def receive_multicast_messages():
     sock.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, mreq)
     while True:
         try:
-            print('\nwaiting to receive message')
+            print('waiting to receive message')
             data, address = sock.recvfrom(1024)
             
             print('received %s bytes from %s' % (len(data), address))
@@ -73,22 +71,20 @@ def receive_multicast_messages():
 
 def send_multicast_message(message):
     try:
-
+        multicast_group = ('224.3.29.71', 10000)
         print('sending "%s"' % message)
         SOCK.sendto(bytes(message, 'utf-8'), multicast_group)
         while True:
-            print('waiting to receive')
+            print('Waiting to receive message from multicast group')
             try:
                 data, server = SOCK.recvfrom(16)
             except socket.timeout:
-                print('timed out, no more responses')
+                print('Timed out, no more responses')
                 break
             else:
-                print('received "%s" from %s' % (data, server))
+                print('Received "%s" from %s' % (data, server))
     except Exception as e:
         print(e)
-
-SOCK = None
 
 if __name__ == '__main__':
     try:
@@ -96,7 +92,6 @@ if __name__ == '__main__':
             target=start_server, daemon=True)
         server_thread.start()
 
-        multicast_group = ('224.3.29.71', 10000)
         SOCK = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         SOCK.settimeout(5)
         receive_multicast_messages()
@@ -104,5 +99,5 @@ if __name__ == '__main__':
         print('Goodbye! (:')
         exit
     finally:
-        print('closing socket')
+        print('Closing socket...')
         SOCK.close()
