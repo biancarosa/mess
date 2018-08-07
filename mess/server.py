@@ -79,7 +79,7 @@ def send_multicast_message(message):
             try:
                 data, server = SOCK.recvfrom(16)
             except socket.timeout:
-                print('Timed out, no more responses')
+                print('Timed out, no more responses\n')
                 break
             else:
                 print('Received "%s" from %s' % (data, server))
